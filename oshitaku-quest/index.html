@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  html, body { margin: 0; padding: 0; }
+  * { -webkit-tap-highlight-color: transparent; }
+  @keyframes pop { 0%{transform:scale(1)} 35%{transform:scale(1.045)} 70%{transform:scale(0.99)} 100%{transform:scale(1)} }
+  @keyframes shake { 0%,100%{transform:translateX(0)} 20%{transform:translateX(-7px)} 40%{transform:translateX(7px)} 60%{transform:translateX(-5px)} 80%{transform:translateX(5px)} }
+  @keyframes pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.035)} }
+  @keyframes cheer { 0%{transform:scale(0.4);opacity:0} 55%{transform:scale(1.15)} 100%{transform:scale(1);opacity:1} }
+  @keyframes stampSlam { 0%{transform:scale(2.7) rotate(-14deg);opacity:0} 55%{transform:scale(0.92) rotate(4deg);opacity:1} 78%{transform:scale(1.06) rotate(-2deg)} 100%{transform:scale(1) rotate(0)} }
+  @keyframes confettiFall { 0%{transform:translateY(-10px) rotate(0deg)} 100%{transform:translateY(940px) rotate(760deg)} }
+  @keyframes checkPop { 0%{transform:scale(0)} 60%{transform:scale(1.25)} 100%{transform:scale(1)} }
+</style>
+</helmet>
+<div style="min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:36px 20px 44px; box-sizing:border-box; background:linear-gradient(165deg,#EEF1F7 0%,#E6EBF3 100%); font-family:'M PLUS Rounded 1c', system-ui, sans-serif;">
+
+  <div style="font-size:13px; font-weight:700; letter-spacing:3px; color:#A6AAB6; margin-bottom:18px;">おしたくクエスト ・ iOS PROTOTYPE</div>
+
+  <x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" hint-size="402px,874px">
+
+    <sc-if value="{{ isTasks }}" hint-placeholder-val="{{ true }}">
+      <div style="height:100%; display:flex; flex-direction:column; padding-top:52px; box-sizing:border-box; background:linear-gradient(180deg,#FFF6E9 0%,#FFFCF6 30%); font-family:'M PLUS Rounded 1c', system-ui, sans-serif;">
+
+        <div style="display:flex; align-items:center; gap:8px; padding:6px 14px 10px;">
+          <div style="display:flex; gap:8px; flex:1; min-width:0;">
+            <div style="display:flex; align-items:center; gap:6px; background:{{ primary }}; color:#fff; padding:0 16px; border-radius:18px; font-weight:800; font-size:18px; height:44px; box-sizing:border-box; box-shadow:0 4px 10px rgba(0,0,0,0.10);">
+              <span style="font-size:22px;">{{ childIcon }}</span><span>{{ childName }}</span>
+            </div>
+            <sc-if value="{{ twoKids }}" hint-placeholder-val="{{ true }}">
+              <div style="display:flex; align-items:center; gap:6px; background:#fff; color:#B7B2BE; padding:0 16px; border-radius:18px; font-weight:700; font-size:18px; height:44px; box-sizing:border-box;">
+                <span style="font-size:22px;">🐱</span><span>あおい</span>
+              </div>
+            </sc-if>
+          </div>
+          <div onClick="{{ gear }}" style="width:44px; height:44px; border-radius:50%; background:#fff; display:flex; align-items:center; justify-content:center; font-size:22px; flex-shrink:0; box-shadow:0 2px 6px rgba(0,0,0,0.06); cursor:pointer;">⚙️</div>
+        </div>
+
+        <div style="background:#fff; border-radius:24px; margin:0 16px 12px; padding:15px 18px; box-shadow:0 4px 14px rgba(0,0,0,0.05);">
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:11px;">
+            <div style="display:flex; align-items:center; gap:8px;">
+              <span style="font-size:24px;">⏳</span>
+              <span style="font-size:17px; font-weight:700; color:#7A7585;">しゅっぱつまで</span>
+            </div>
+            <span style="font-size:21px; font-weight:800; color:{{ timerColor }};">{{ timerLabel }}</span>
+          </div>
+          <div style="height:18px; border-radius:9px; background:#F0EEF4; overflow:hidden;">
+            <div style="height:100%; width:{{ timerPct }}; background:{{ timerColor }}; border-radius:9px; transition:width 0.6s linear, background 0.6s;"></div>
+          </div>
+        </div>
+
+        <div style="flex:1; overflow:auto; padding:2px 16px 8px;">
+          <sc-for list="{{ tasks }}" as="t" hint-placeholder-count="6">
+            <div onClick="{{ t.onClick }}" style="display:flex; align-items:center; gap:15px; background:{{ t.cardBg }}; border-radius:24px; padding:0 16px; margin-bottom:12px; min-height:86px; box-sizing:border-box; opacity:{{ t.opacity }}; box-shadow:{{ t.cardShadow }}; cursor:pointer; animation:{{ t.anim }};">
+              <div style="width:60px; height:60px; border-radius:18px; background:{{ t.iconBg }}; display:flex; align-items:center; justify-content:center; font-size:34px; flex-shrink:0;">{{ t.emoji }}</div>
+              <div style="flex:1; font-size:25px; font-weight:700; color:{{ t.labelColor }};">{{ t.label }}</div>
+              <sc-if value="{{ t.isDone }}" hint-placeholder-val="{{ false }}">
+                <div style="width:46px; height:46px; border-radius:50%; background:#58CC7A; display:flex; align-items:center; justify-content:center; font-size:26px; color:#fff; font-weight:800; flex-shrink:0; animation:checkPop 0.4s ease-out;">✓</div>
+              </sc-if>
+              <sc-if value="{{ t.isLocked }}" hint-placeholder-val="{{ false }}">
+                <div style="width:46px; height:46px; border-radius:50%; background:#E2E2EA; display:flex; align-items:center; justify-content:center; font-size:22px; flex-shrink:0;">🔒</div>
+              </sc-if>
+              <sc-if value="{{ t.isTapHint }}" hint-placeholder-val="{{ true }}">
+                <div style="width:46px; height:46px; border-radius:50%; border:3px dashed #FFC093; flex-shrink:0;"></div>
+              </sc-if>
+            </div>
+          </sc-for>
+        </div>
+
+        <div style="background:rgba(255,255,255,0.94); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); border-top:1px solid #F0EEF4; padding:12px 16px 30px;">
+          <div style="display:flex; justify-content:space-between; margin-bottom:13px;">
+            <sc-for list="{{ week }}" as="d" hint-placeholder-count="7">
+              <div style="display:flex; flex-direction:column; align-items:center; gap:5px;">
+                <div style="font-size:12px; font-weight:700; color:{{ d.dayColor }};">{{ d.label }}</div>
+                <div style="width:36px; height:36px; border-radius:50%; background:{{ d.bg }}; border:{{ d.border }}; display:flex; align-items:center; justify-content:center; font-size:19px; box-sizing:border-box;">{{ d.mark }}</div>
+              </div>
+            </sc-for>
+          </div>
+          <div onPointerDown="{{ holdStart }}" onPointerUp="{{ holdEnd }}" onPointerLeave="{{ holdEnd }}" onPointerCancel="{{ holdEnd }}" style="position:relative; height:64px; border-radius:20px; overflow:hidden; background:{{ departBg }}; box-shadow:{{ departShadow }}; display:flex; align-items:center; justify-content:center; cursor:pointer; user-select:none; animation:{{ departAnim }};">
+            <div style="position:absolute; left:0; top:0; bottom:0; width:{{ holdPct }}; background:rgba(255,255,255,0.32); transition:width 0.05s linear;"></div>
+            <span style="position:relative; font-size:24px; font-weight:800; color:#fff;">🚌 しゅっぱつ！</span>
+            <span style="position:relative; font-size:13px; font-weight:700; color:rgba(255,255,255,0.85); margin-left:10px; align-self:center; margin-top:4px;">ながおし</span>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isCelebration }}" hint-placeholder-val="{{ false }}">
+      <div style="position:relative; height:100%; overflow:hidden; background:radial-gradient(circle at 50% 34%, #FFF7DA 0%, #FFE9BE 58%, #FFD8A2 100%); display:flex; flex-direction:column; align-items:center; justify-content:center; font-family:'M PLUS Rounded 1c', system-ui, sans-serif;">
+        <sc-for list="{{ confetti }}" as="c" hint-placeholder-count="0">
+          <div style="position:absolute; top:-24px; left:{{ c.left }}; width:{{ c.size }}; height:{{ c.size }}; background:{{ c.color }}; border-radius:{{ c.radius }}; animation:{{ c.anim }};"></div>
+        </sc-for>
+        <div style="position:relative; text-align:center; padding:0 24px;">
+          <div style="font-size:62px; font-weight:800; color:{{ primaryDark }}; animation:cheer 0.6s ease-out; text-shadow:0 4px 0 rgba(255,255,255,0.7);">やったー！</div>
+          <div style="font-size:20px; font-weight:700; color:#9A7438; margin-top:6px;">きょうも ぜんぶ できたね</div>
+          <div style="margin:38px auto 0; width:178px; height:178px; border-radius:50%; background:#FFC93C; box-shadow:0 14px 32px rgba(255,170,20,0.42), inset 0 -7px 0 rgba(0,0,0,0.06); display:flex; align-items:center; justify-content:center; font-size:96px; animation:stampSlam 0.75s cubic-bezier(.2,1.35,.4,1);">💮</div>
+          <div style="font-size:19px; font-weight:800; color:{{ primaryDark }}; margin-top:18px;">すいようび スタンプ ゲット！</div>
+        </div>
+        <div onClick="{{ goBack }}" style="position:absolute; bottom:48px; left:50%; transform:translateX(-50%); padding:13px 36px; border-radius:18px; background:#fff; box-shadow:0 4px 14px rgba(0,0,0,0.12); font-size:18px; font-weight:800; color:{{ primary }}; cursor:pointer;">もどる</div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isOnboarding }}" hint-placeholder-val="{{ false }}">
+      <div style="height:100%; display:flex; flex-direction:column; padding:74px 28px 30px; box-sizing:border-box; overflow:auto; background:linear-gradient(180deg,#FFF3E0 0%,#FFFDF8 40%); font-family:'M PLUS Rounded 1c', system-ui, sans-serif;">
+        <div style="text-align:center; font-size:14px; font-weight:800; letter-spacing:2px; color:{{ primary }}; margin-bottom:10px;">おしたくクエスト</div>
+        <div style="text-align:center; font-size:28px; font-weight:800; color:#4B4658; margin-bottom:6px;">はじめまして！</div>
+        <div style="text-align:center; font-size:17px; font-weight:500; color:#9C96A6; margin-bottom:28px;">おなまえを おしえてね</div>
+        <input value="{{ nameInput }}" onChange="{{ onName }}" placeholder="なまえ" style="height:60px; border-radius:18px; border:3px solid {{ primarySoft }}; background:#fff; font-size:22px; font-weight:700; text-align:center; color:#4B4658; outline:none; font-family:inherit; margin-bottom:30px;" />
+        <div style="font-size:17px; font-weight:700; color:#6B6675; margin-bottom:14px; text-align:center;">アイコンを えらぼう</div>
+        <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:auto;">
+          <sc-for list="{{ icons }}" as="ic" hint-placeholder-count="8">
+            <div onClick="{{ ic.onClick }}" style="aspect-ratio:1; border-radius:20px; background:{{ ic.bg }}; border:{{ ic.border }}; display:flex; align-items:center; justify-content:center; font-size:34px; cursor:pointer; box-sizing:border-box;">{{ ic.emoji }}</div>
+          </sc-for>
+        </div>
+        <div onClick="{{ startApp }}" style="margin-top:26px; height:64px; border-radius:20px; background:{{ primary }}; box-shadow:0 8px 22px {{ primaryGlow }}; display:flex; align-items:center; justify-content:center; font-size:25px; font-weight:800; color:#fff; cursor:pointer;">はじめる</div>
+      </div>
+    </sc-if>
+
+  </x-import>
+
+  <div style="display:flex; gap:5px; background:#fff; padding:5px; border-radius:16px; box-shadow:0 4px 16px rgba(0,0,0,0.08); margin-top:22px;">
+    <sc-for list="{{ screens }}" as="p" hint-placeholder-count="3">
+      <div onClick="{{ p.onClick }}" style="padding:9px 20px; border-radius:12px; background:{{ p.bg }}; color:{{ p.color }}; font-size:15px; font-weight:800; cursor:pointer; transition:all 0.15s;">{{ p.label }}</div>
+    </sc-for>
+  </div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:480,&quot;height&quot;:1040},&quot;theme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;サンライズ&quot;,&quot;スカイ&quot;,&quot;ベリー&quot;],&quot;default&quot;:&quot;サンライズ&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;テーマ&quot;},&quot;twoKids&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;テーマ&quot;}}">
+class Component extends DCLogic {
+  state = {
+    screen: 'tasks',
+    done: { kigae: true },
+    justDone: null,
+    shake: null,
+    childName: 'はると',
+    childIcon: '🐰',
+    nameInput: '',
+    iconIdx: 0,
+    timeFrac: 0.78,
+    hold: 0,
+    stampToday: false,
+    confetti: this._makeConfetti(),
+  };
+
+  _makeConfetti() {
+    const cols = ['#FF8A3D', '#3FBDE8', '#58CC7A', '#FFC93C', '#FF6B9D', '#A78BFA'];
+    const a = [];
+    for (let i = 0; i < 70; i++) {
+      const sz = 8 + Math.random() * 10;
+      a.push({
+        left: (Math.random() * 100).toFixed(1) + '%',
+        color: cols[i % cols.length],
+        size: sz.toFixed(0) + 'px',
+        radius: i % 2 ? '50%' : '3px',
+        anim: 'confettiFall ' + (2.2 + Math.random() * 1.7).toFixed(2) + 's linear ' + (Math.random() * 1.3).toFixed(2) + 's infinite',
+      });
+    }
+    return a;
+  }
+
+  componentDidMount() {
+    this._timer = setInterval(() => {
+      this.setState(s => {
+        let f = s.timeFrac - 0.02;
+        if (f < 0.05) f = 0.88;
+        return { timeFrac: f };
+      });
+    }, 900);
+  }
+  componentWillUnmount() {
+    clearInterval(this._timer);
+    clearInterval(this._hi);
+  }
+
+  complete(id) {
+    this.setState(s => ({ done: { ...s.done, [id]: true }, justDone: id }));
+    clearTimeout(this._jd);
+    this._jd = setTimeout(() => this.setState({ justDone: null }), 700);
+  }
+  shake(id) {
+    this.setState({ shake: id });
+    clearTimeout(this._sh);
+    this._sh = setTimeout(() => this.setState({ shake: null }), 460);
+  }
+  startHold() {
+    if (this._hi) return;
+    this._t0 = performance.now();
+    this._hi = setInterval(() => {
+      const p = Math.min(100, (performance.now() - this._t0) / 850 * 100);
+      this.setState({ hold: p });
+      if (p >= 100) this.finishHold();
+    }, 16);
+  }
+  finishHold() {
+    clearInterval(this._hi);
+    this._hi = null;
+    this.setState({ hold: 0, screen: 'celebration', stampToday: true });
+  }
+  cancelHold() {
+    if (!this._hi) return;
+    clearInterval(this._hi);
+    this._hi = null;
+    this.setState({ hold: 0 });
+  }
+
+  renderVals() {
+    const s = this.state;
+    const themes = {
+      'サンライズ': { p: '#FF8A3D', pd: '#E86F1E', soft: '#FFD9BC', glow: 'rgba(255,138,61,0.38)' },
+      'スカイ': { p: '#3F9BE8', pd: '#2A77C4', soft: '#C7E4FB', glow: 'rgba(63,155,232,0.38)' },
+      'ベリー': { p: '#E8508A', pd: '#C93B71', soft: '#FBCDDF', glow: 'rgba(232,80,138,0.38)' },
+    };
+    const th = themes[this.props.theme] || themes['サンライズ'];
+    const twoKids = this.props.twoKids ?? true;
+
+    const order = ['kigae', 'gohan', 'hamigaki', 'kaban', 'kutsu'];
+    const defs = [
+      { id: 'kigae', emoji: '🧥', label: 'きがえ', tint: '#FFE3D1' },
+      { id: 'gohan', emoji: '🍳', label: 'ごはん', tint: '#FFF1C9' },
+      { id: 'hamigaki', emoji: '🪥', label: 'はみがき', tint: '#D6F0FF' },
+      { id: 'toilet', emoji: '🚽', label: 'トイレ', tint: '#E2F7E4', free: true },
+      { id: 'kaban', emoji: '🎒', label: 'カバン', tint: '#EADCFF' },
+      { id: 'kutsu', emoji: '👟', label: 'くつ', tint: '#FFE0EC' },
+    ];
+    const tasks = defs.map(d => {
+      let status;
+      if (s.done[d.id]) status = 'done';
+      else if (d.free) status = 'active';
+      else {
+        const idx = order.indexOf(d.id);
+        status = order.slice(0, idx).every(id => s.done[id]) ? 'active' : 'locked';
+      }
+      const isDone = status === 'done', isLocked = status === 'locked', isActive = status === 'active';
+      const anim = s.shake === d.id ? 'shake 0.46s' : (s.justDone === d.id ? 'pop 0.45s' : 'none');
+      return {
+        emoji: d.emoji, label: d.label,
+        isDone, isLocked, isTapHint: isActive,
+        cardBg: isLocked ? '#EFEFF4' : '#fff',
+        iconBg: isLocked ? '#E2E2EA' : d.tint,
+        labelColor: isLocked ? '#B7B7C2' : (isDone ? '#ABA8B4' : '#4B4658'),
+        opacity: isDone ? '0.72' : '1',
+        cardShadow: isActive ? '0 6px 16px rgba(0,0,0,0.08)' : '0 2px 6px rgba(0,0,0,0.04)',
+        anim,
+        onClick: isActive ? () => this.complete(d.id) : () => this.shake(d.id),
+      };
+    });
+    const allDone = defs.every(d => s.done[d.id]);
+
+    const f = s.timeFrac;
+    const timerColor = f > 0.5 ? '#3FBDE8' : (f > 0.22 ? '#58CC7A' : '#FF7A3D');
+    const timerLabel = 'あと ' + Math.max(1, Math.ceil(f * 30)) + 'ふん';
+    const timerPct = Math.round(f * 100) + '%';
+
+    const week = [
+      { label: '月', done: true }, { label: '火', done: true }, { label: '水', today: true },
+      { label: '木' }, { label: '金' }, { label: '土' }, { label: '日' },
+    ].map(d => {
+      const stamped = d.done || (d.today && s.stampToday);
+      return {
+        label: d.label,
+        dayColor: d.today ? th.p : '#A8A4B0',
+        bg: stamped ? '#FFE9A8' : '#F2F0F6',
+        border: d.today ? '3px solid ' + th.p : '3px solid transparent',
+        mark: stamped ? '⭐' : '',
+      };
+    });
+
+    const iconEmojis = ['🐰', '🐱', '🐶', '🦊', '🐻', '🍓', '🍎', '🐸'];
+    const icons = iconEmojis.map((e, i) => ({
+      emoji: e,
+      bg: s.iconIdx === i ? th.soft : '#fff',
+      border: s.iconIdx === i ? '4px solid ' + th.p : '3px solid #F0EAE2',
+      onClick: () => this.setState({ iconIdx: i }),
+    }));
+
+    const screens = [
+      { key: 'onboarding', label: 'はじめ' },
+      { key: 'tasks', label: 'おしたく' },
+      { key: 'celebration', label: 'おいわい' },
+    ].map(p => ({
+      label: p.label,
+      bg: s.screen === p.key ? th.p : 'transparent',
+      color: s.screen === p.key ? '#fff' : '#8A8594',
+      onClick: () => this.setState({ screen: p.key }),
+    }));
+
+    return {
+      isOnboarding: s.screen === 'onboarding',
+      isTasks: s.screen === 'tasks',
+      isCelebration: s.screen === 'celebration',
+      tasks, allDone, week, icons, screens, confetti: s.confetti,
+      timerColor, timerLabel, timerPct,
+      childName: s.childName, childIcon: s.childIcon,
+      nameInput: s.nameInput,
+      twoKids,
+      primary: th.p, primaryDark: th.pd, primarySoft: th.soft, primaryGlow: th.glow,
+      onName: (e) => this.setState({ nameInput: e.target.value }),
+      startApp: () => this.setState(st => ({ screen: 'tasks', childName: (st.nameInput || '').trim() || 'はると', childIcon: iconEmojis[st.iconIdx] })),
+      goBack: () => this.setState({ screen: 'tasks' }),
+      gear: () => this.setState({ screen: 'onboarding' }),
+      holdStart: () => this.startHold(),
+      holdEnd: () => this.cancelHold(),
+      holdPct: s.hold + '%',
+      departBg: allDone ? th.p : '#FFB877',
+      departShadow: allDone ? '0 10px 24px ' + th.glow : '0 4px 12px rgba(0,0,0,0.10)',
+      departAnim: allDone ? 'pulse 1.4s ease-in-out infinite' : 'none',
+    };
+  }
+}
+</script>
+</body>
+</html>
