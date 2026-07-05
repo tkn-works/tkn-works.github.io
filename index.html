@@ -1,17 +1,318 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>tkn_works</title>
-  <style>
-    body { font-family: sans-serif; text-align: center; padding: 60px 20px; color: #333; }
-    h1 { font-size: 2rem; margin-bottom: 8px; }
-    p { color: #666; }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>tkn_works — Product Portfolio</title>
+<meta name="description" content="個人開発者tkn_worksのプロダクトポートフォリオ。こんだてノート・おしたくクエストを開発・運用しています。">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23FAFAF8'/%3E%3Crect x='9' y='9' width='14' height='14' rx='3' fill='%23C6394A'/%3E%3C/svg%3E">
+<style>
+  :root {
+    --bg: #FAFAF8;
+    --ink: #1A1A18;
+    --ink-soft: #66655F;
+    --ink-faint: #8C8B84;
+    --line: #E7E6DF;
+    --line-soft: #ECEBE3;
+    --card-bg: #FFFFFF;
+    --footer-bg: #F3F2ED;
+    --accent: #C6394A;
+    --accent-soft: #F1F0EA;
+    --status-live: #3F8F5C;
+    --status-live-bg: #E4F1E8;
+    --status-dev: #8C8B84;
+    --status-dev-bg: #EFEEE7;
+    --p1-color: #D9722B;
+    --p1-soft: #F5E4D5;
+    --p2-color: #D9A62B;
+    --p2-soft: #F5EBD2;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic UI", "Noto Sans JP", system-ui, sans-serif;
+    color: var(--ink);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+  .mono {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, "JetBrains Mono", monospace;
+  }
+  ::selection { background: var(--ink); color: var(--bg); }
+
+  header.top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 22px 64px;
+    position: sticky;
+    top: 0;
+    background: rgba(250,250,248,0.86);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line-soft);
+    z-index: 10;
+  }
+  .logo {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-weight: 700;
+    font-size: 18px;
+    letter-spacing: -0.02em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .logo .dot { width: 8px; height: 8px; border-radius: 2px; background: var(--accent); display: inline-block; }
+  nav.top-nav {
+    display: flex;
+    gap: 28px;
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 13px;
+    color: var(--ink-soft);
+  }
+  nav.top-nav a { color: inherit; text-decoration: none; transition: color 0.15s ease; }
+  nav.top-nav a:hover { color: var(--accent); }
+
+  .hero { padding: 110px 64px 96px; max-width: 980px; }
+  .eyebrow {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 12px;
+    color: var(--ink-faint);
+    letter-spacing: 0.08em;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .eyebrow .rule { width: 28px; height: 1px; background: #C7C6BE; display: inline-block; }
+  h1.hero-title {
+    font-weight: 900;
+    font-size: 64px;
+    line-height: 1.28;
+    letter-spacing: -0.02em;
+    margin: 0;
+    text-wrap: balance;
+  }
+  h1.hero-title .accent-word { color: var(--accent); }
+  .hero-sub {
+    font-size: 16px;
+    line-height: 1.8;
+    color: var(--ink-soft);
+    max-width: 46ch;
+    margin-top: 28px;
+  }
+  section.section { padding: 0 64px 120px; }
+  .section-label { margin-bottom: 36px; }
+  .section-eyebrow {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 12px;
+    color: var(--accent);
+    letter-spacing: 0.08em;
+  }
+  h2.section-title {
+    font-weight: 700;
+    font-size: 32px;
+    margin: 10px 0 0;
+    letter-spacing: -0.01em;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-auto-rows: 170px;
+    gap: 16px;
+  }
+  .card, .tile {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 26px;
+    border-radius: 14px;
+    background: var(--card-bg);
+    border: 1px solid var(--line);
+    text-decoration: none;
+    color: inherit;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 1px 2px rgba(20,20,15,0.03);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    opacity: 0;
+    animation: floatIn 0.5s ease both;
+  }
+  .card:hover { transform: translateY(-3px); box-shadow: 0 12px 28px rgba(198,57,74,0.12); border-color: #E3B7BC; }
+  .card.card-1 { grid-column: 1 / 5; grid-row: 1 / 3; border-left: 3px solid var(--p1-color); animation-delay: 0s; }
+  .card.card-2 { grid-column: 5 / 7; grid-row: 1; border-left: 3px solid var(--p2-color); animation-delay: 0.06s; }
+
+  .tile-stack { grid-column: 5 / 7; grid-row: 2; animation-delay: 0.12s; }
+  .tile-quote { grid-column: 1 / 4; grid-row: 3; background: var(--ink); color: var(--bg); animation-delay: 0.18s; border: none; }
+  .tile-now { grid-column: 4 / 7; grid-row: 3; animation-delay: 0.24s; }
+
+  .tile-label {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.05em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .tile-quote .tile-label { color: rgba(250,250,248,0.5); }
+  .tile-quote p {
+    font-weight: 700;
+    font-size: 19px;
+    line-height: 1.5;
+    margin: 14px 0 0;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+  }
+  .tile-now .now-value {
+    font-weight: 900;
+    font-size: 26px;
+    letter-spacing: -0.01em;
+    margin: 12px 0 4px;
+  }
+  .tile-now .now-sub { font-size: 13px; color: var(--ink-soft); line-height: 1.6; margin: 0; }
+  .tile .stack-chips { margin-top: 14px; }
+  .tile .chip { font-size: 11px; padding: 5px 10px; }
+  @keyframes floatIn { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+  @media (prefers-reduced-motion: reduce) {
+    .card, .tile { animation: none; opacity: 1; }
+  }
+
+  .card-top { display: flex; align-items: flex-start; justify-content: space-between; width: 100%; }
+  .card-icon {
+    width: 44px; height: 44px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 17px; flex-shrink: 0;
+  }
+  .card.card-1 .card-icon { background: var(--p1-soft); color: var(--p1-color); }
+  .card.card-2 .card-icon { background: var(--p2-soft); color: var(--p2-color); }
+  .badge {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 10.5px; letter-spacing: 0.03em;
+    padding: 4px 9px; border-radius: 20px; white-space: nowrap;
+  }
+  .badge.live { color: var(--status-live); background: var(--status-live-bg); }
+  .badge.dev { color: var(--status-dev); background: var(--status-dev-bg); }
+  .card-name { font-weight: 700; margin: 18px 0 8px; letter-spacing: -0.01em; }
+  .card.card-1 .card-name { font-size: 24px; }
+  .card.card-2 .card-name { font-size: 18px; }
+  .card-copy { line-height: 1.6; color: var(--ink-soft); margin: 0; max-width: 46ch; }
+  .card.card-1 .card-copy { font-size: 15px; }
+  .card.card-2 .card-copy { font-size: 13.5px; }
+
+  .about-grid { display: flex; flex-direction: row; gap: 48px; align-items: flex-start; }
+  .about-text { font-size: 16px; line-height: 1.85; color: #3A3A35; flex: 1.1; margin: 0; max-width: 52ch; }
+  .stack-box { flex: 1; background: var(--card-bg); border: 1px solid var(--line); border-radius: 14px; padding: 26px; }
+  .stack-label {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 11px; color: var(--ink-faint); letter-spacing: 0.05em; margin-bottom: 12px; display: block;
+  }
+  .stack-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 12px; color: #3A3A35; background: var(--accent-soft);
+    border: 1px solid var(--line); padding: 6px 12px; border-radius: 20px;
+  }
+
+  footer.site-footer { padding: 88px 64px 40px; border-top: 1px solid var(--line-soft); background: var(--footer-bg); }
+  .footer-top {
+    display: flex; justify-content: space-between; align-items: flex-end; gap: 20px; padding-bottom: 56px;
+  }
+  .footer-title { font-weight: 900; font-size: 38px; line-height: 1.3; margin: 0; letter-spacing: -0.01em; }
+  .footer-links { display: flex; gap: 20px; font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 13px; }
+  .footer-links a { color: #3A3A35; text-decoration: none; border-bottom: 1px solid #C7C6BE; padding-bottom: 2px; transition: color 0.15s ease, border-color 0.15s ease; }
+  .footer-links a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+  .footer-bottom {
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px;
+    font-size: 12.5px; color: var(--ink-faint); padding-top: 20px; border-top: 1px solid var(--line);
+  }
+
+  @media (max-width: 999px) {
+    header.top, .hero, section.section, footer.site-footer { padding-left: 40px; padding-right: 40px; }
+    h1.hero-title { font-size: 48px; }
+    .grid { grid-template-columns: repeat(4, 1fr); grid-auto-rows: 150px; }
+    .card.card-1, .card.card-2, .tile-stack, .tile-quote, .tile-now { grid-column: 1 / 5; grid-row: auto; min-height: 180px; }
+    .card.card-1 { min-height: 260px; }
+    .about-grid { flex-direction: column; gap: 28px; }
+    .about-text, .stack-box { flex: none; width: 100%; }
+    .footer-top { flex-direction: column; align-items: flex-start; gap: 28px; }
+  }
+  @media (max-width: 639px) {
+    header.top, .hero, section.section, footer.site-footer { padding-left: 20px; padding-right: 20px; }
+    header.top { padding-top: 18px; padding-bottom: 18px; }
+    .hero { padding-top: 48px; padding-bottom: 56px; }
+    h1.hero-title { font-size: 34px; }
+    .hero-sub { font-size: 14.5px; margin-top: 20px; }
+    .grid { display: flex; flex-direction: column; gap: 14px; }
+    .card, .tile { min-height: 150px; }
+    .card.card-1 .card-name { font-size: 18px; }
+    .card.card-1 .card-copy { font-size: 13.5px; }
+    h2.section-title { font-size: 24px; }
+    .footer-title { font-size: 26px; }
+  }
+</style>
 </head>
 <body>
-  <h1>tkn_works</h1>
-  <p>個人開発 / iOS Apps</p>
+  <div class="site">
+    <header class="top">
+      <div class="logo"><span class="dot"></span>tkn_works</div>
+      <nav class="top-nav"><a href="#products">products</a><a href="#about">about</a><a href="#contact">contact</a></nav>
+    </header>
+
+    <section class="hero">
+      <div class="eyebrow"><span class="rule"></span>INDIE DEVELOPER / PORTFOLIO</div>
+      <h1 class="hero-title">個人開発で、<br>暮らしに<span class="accent-word">小さく</span><br>効くものをつくる。</h1>
+      <p class="hero-sub">献立づくりから朝の支度まで。tkn_works は2つのプロダクトを個人で開発・運用しています。</p>
+    </section>
+
+    <section id="products" class="section">
+      <div class="section-label">
+        <span class="section-eyebrow">01 / PRODUCTS</span>
+        <h2 class="section-title">つくっているもの</h2>
+      </div>
+      <div class="grid">
+        <a href="https://apps.apple.com/jp/app/id6772466183" target="_blank" rel="noopener" class="card card-1">
+          <div class="card-top"><div class="card-icon">こ</div><span class="badge live">公開中</span></div>
+          <div><h3 class="card-name">こんだてノート</h3><p class="card-copy">週1まとめ買い派のためのAI献立プランナー。7日分の夕食献立と買い物リストを自動生成</p></div>
+        </a>
+        <a href="https://tkn-works.github.io/oshitaku-quest/" target="_blank" rel="noopener" class="card card-2">
+          <div class="card-top"><div class="card-icon">お</div><span class="badge dev">開発中</span></div>
+          <div><h3 class="card-name">おしたくクエスト</h3><p class="card-copy">子どもが自分からやりたくなる、朝の支度ゲームアプリ</p></div>
+        </a>
+        <div class="tile tile-stack">
+          <span class="tile-label">Tech Stack</span>
+          <div class="stack-chips">
+            <span class="chip">Swift</span><span class="chip">SwiftUI</span><span class="chip">TypeScript</span><span class="chip">React</span><span class="chip">Firebase</span><span class="chip">Claude API</span>
+          </div>
+        </div>
+        <div class="tile tile-quote">
+          <span class="tile-label">Philosophy</span>
+          <p>小さく作って、実際に使いながら育てる。</p>
+        </div>
+        <div class="tile tile-now">
+          <span class="tile-label">Now</span>
+          <div class="now-value">個人開発 2年目</div>
+          <p class="now-sub">企画・設計・実装・運用まで一人で担当。次のプロダクトも構想中です。</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="section">
+      <div class="section-label">
+        <span class="section-eyebrow">02 / ABOUT</span>
+        <h2 class="section-title">つくる人について</h2>
+      </div>
+      <div class="about-grid">
+        <p class="about-text">個人開発者として、日々の暮らしにちょっとだけ効くプロダクトを作っています。企画・設計・実装・運用まで一人で担当しています。</p>
+      </div>
+    </section>
+
+    <footer id="contact" class="site-footer">
+      <div class="footer-top">
+        <h3 class="footer-title">なにか一緒に、<br>作りませんか。</h3>
+        <div class="footer-links"><a href="https://x.com/tkn_works" target="_blank" rel="noopener">X (Twitter)</a><a href="https://note.com/tkn_works" target="_blank" rel="noopener">note</a><a href="https://zenn.dev/tkn_works" target="_blank" rel="noopener">Zenn</a><a href="https://qiita.com/tkn_works" target="_blank" rel="noopener">Qiita</a></div>
+      </div>
+      <div class="footer-bottom"><span>© 2026 tkn_works</span><span class="mono">v0.4.2 · built solo</span></div>
+    </footer>
+  </div>
 </body>
 </html>
