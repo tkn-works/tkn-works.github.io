@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>tkn_works — Product Portfolio</title>
-<meta name="description" content="個人開発者tkn_worksのプロダクトポートフォリオ。こんだてノート・おしたくクエストを開発・運用しています。">
+<meta name="description" content="個人開発者tkn_worksのプロダクトポートフォリオ。こんだてノート・おしたくクエストのほか、個人開発ツールも公開しています。">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23FAFAF8'/%3E%3Crect x='9' y='9' width='14' height='14' rx='3' fill='%23C6394A'/%3E%3C/svg%3E">
 <style>
   :root {
@@ -146,6 +146,8 @@
   .tile-stack { grid-column: 5 / 7; grid-row: 2; animation-delay: 0.12s; }
   .tile-quote { grid-column: 1 / 4; grid-row: 3; background: var(--ink); color: var(--bg); animation-delay: 0.18s; border: none; }
   .tile-now { grid-column: 4 / 7; grid-row: 3; animation-delay: 0.24s; }
+  .card.card-3 { grid-column: 1 / 4; grid-row: 4; border-left: 3px solid var(--ink-faint); animation-delay: 0.30s; }
+  .card.card-4 { grid-column: 4 / 7; grid-row: 4; border-left: 3px solid var(--ink-faint); animation-delay: 0.36s; }
 
   .tile-label {
     font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
@@ -185,6 +187,7 @@
   }
   .card.card-1 .card-icon { background: var(--p1-soft); color: var(--p1-color); }
   .card.card-2 .card-icon { background: var(--p2-soft); color: var(--p2-color); }
+  .card.card-3 .card-icon, .card.card-4 .card-icon { background: var(--accent-soft); color: var(--ink-soft); }
   .badge {
     font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
     font-size: 10.5px; letter-spacing: 0.03em;
@@ -194,10 +197,10 @@
   .badge.dev { color: var(--status-dev); background: var(--status-dev-bg); }
   .card-name { font-weight: 700; margin: 18px 0 8px; letter-spacing: -0.01em; }
   .card.card-1 .card-name { font-size: 24px; }
-  .card.card-2 .card-name { font-size: 18px; }
+  .card.card-2 .card-name, .card.card-3 .card-name, .card.card-4 .card-name { font-size: 18px; }
   .card-copy { line-height: 1.6; color: var(--ink-soft); margin: 0; max-width: 46ch; }
   .card.card-1 .card-copy { font-size: 15px; }
-  .card.card-2 .card-copy { font-size: 13.5px; }
+  .card.card-2 .card-copy, .card.card-3 .card-copy, .card.card-4 .card-copy { font-size: 13.5px; }
 
   .about-grid { display: flex; flex-direction: row; gap: 48px; align-items: flex-start; }
   .about-text { font-size: 16px; line-height: 1.85; color: #3A3A35; flex: 1.1; margin: 0; max-width: 52ch; }
@@ -230,7 +233,7 @@
     header.top, .hero, section.section, footer.site-footer { padding-left: 40px; padding-right: 40px; }
     h1.hero-title { font-size: 48px; }
     .grid { grid-template-columns: repeat(4, 1fr); grid-auto-rows: 150px; }
-    .card.card-1, .card.card-2, .tile-stack, .tile-quote, .tile-now { grid-column: 1 / 5; grid-row: auto; min-height: 180px; }
+    .card.card-1, .card.card-2, .card.card-3, .card.card-4, .tile-stack, .tile-quote, .tile-now { grid-column: 1 / 5; grid-row: auto; min-height: 180px; }
     .card.card-1 { min-height: 260px; }
     .about-grid { flex-direction: column; gap: 28px; }
     .about-text, .stack-box { flex: none; width: 100%; }
@@ -261,7 +264,7 @@
     <section class="hero">
       <div class="eyebrow"><span class="rule"></span>INDIE DEVELOPER / PORTFOLIO</div>
       <h1 class="hero-title">個人開発で、<br>暮らしに<span class="accent-word">小さく</span><br>効くものをつくる。</h1>
-      <p class="hero-sub">献立づくりから朝の支度まで。tkn_works は2つのプロダクトを個人で開発・運用しています。</p>
+      <p class="hero-sub">献立づくりから朝の支度まで。tkn_works は日々の暮らしに効くプロダクトを個人で開発・運用しています。</p>
     </section>
 
     <section id="products" class="section">
@@ -293,6 +296,14 @@
           <div class="now-value">個人開発 2年目</div>
           <p class="now-sub">企画・設計・実装・運用まで一人で担当。次のプロダクトも構想中です。</p>
         </div>
+        <a href="https://tkn-works.github.io/kobanhyou/" target="_blank" rel="noopener" class="card card-3">
+          <div class="card-top"><div class="card-icon">香</div><span class="badge dev">先行登録受付中</span></div>
+          <div><h3 class="card-name">香盤表</h3><p class="card-copy">コスプレ「合わせ」の企画〜当日運営を一元管理するツール（構想検証中）</p></div>
+        </a>
+        <a href="https://shared-checklist-f9d1d.web.app" target="_blank" rel="noopener" class="card card-4">
+          <div class="card-top"><div class="card-icon">共</div><span class="badge dev">個人開発ツール</span></div>
+          <div><h3 class="card-name">共有チェックリスト</h3><p class="card-copy">URLを知っている人だけで同期できる、シンプルなチェックリストツール</p></div>
+        </a>
       </div>
     </section>
 
@@ -311,7 +322,7 @@
         <h3 class="footer-title">なにか一緒に、<br>作りませんか。</h3>
         <div class="footer-links"><a href="https://x.com/tkn_works" target="_blank" rel="noopener">X (Twitter)</a><a href="https://note.com/tkn_works" target="_blank" rel="noopener">note</a><a href="https://zenn.dev/tkn_works" target="_blank" rel="noopener">Zenn</a><a href="https://qiita.com/tkn_works" target="_blank" rel="noopener">Qiita</a></div>
       </div>
-      <div class="footer-bottom"><span>© 2026 tkn_works</span><span class="mono">v0.4.2 · built solo</span></div>
+      <div class="footer-bottom"><span>© 2026 tkn_works</span><span class="mono">v0.5.0 · built solo</span></div>
     </footer>
   </div>
 </body>
