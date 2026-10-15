@@ -26,6 +26,8 @@
     --p1-soft: #F5E4D5;
     --p2-color: #D9A62B;
     --p2-soft: #F5EBD2;
+  --p3-color: #3A8FB7;
+  --p3-soft: #DCEBF3;
   }
   * { box-sizing: border-box; }
   html, body { margin: 0; padding: 0; }
@@ -144,9 +146,10 @@
   .card.card-2 { grid-column: 5 / 7; grid-row: 1; border-left: 3px solid var(--p2-color); animation-delay: 0.06s; }
 
   .tile-stack { grid-column: 5 / 7; grid-row: 2; animation-delay: 0.12s; }
-  .tile-quote { grid-column: 1 / 4; grid-row: 3; background: var(--ink); color: var(--bg); animation-delay: 0.18s; border: none; }
-  .tile-now { grid-column: 4 / 7; grid-row: 3; animation-delay: 0.24s; }
-  .card.card-4 { grid-column: 1 / 7; grid-row: 4; border-left: 3px solid var(--ink-faint); animation-delay: 0.36s; }
+  .card.card-3 { grid-column: 1 / 4; grid-row: 3; border-left: 3px solid var(--p3-color); animation-delay: 0.18s; }
+  .tile-quote { grid-column: 4 / 7; grid-row: 3; background: var(--ink); color: var(--bg); animation-delay: 0.18s; border: none; }
+  .tile-now { grid-column: 1 / 4; grid-row: 4; animation-delay: 0.24s; }
+  .card.card-4 { grid-column: 4 / 7; grid-row: 4; border-left: 3px solid var(--ink-faint); animation-delay: 0.36s; }
 
   .tile-label {
     font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
@@ -186,7 +189,8 @@
   }
   .card.card-1 .card-icon { background: var(--p1-soft); color: var(--p1-color); }
   .card.card-2 .card-icon { background: var(--p2-soft); color: var(--p2-color); }
-  .card.card-3 .card-icon, .card.card-4 .card-icon { background: var(--accent-soft); color: var(--ink-soft); }
+  .card.card-3 .card-icon { background: var(--p3-soft); color: var(--p3-color); }
+  .card.card-4 .card-icon { background: var(--accent-soft); color: var(--ink-soft); }
   .badge {
     font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
     font-size: 10.5px; letter-spacing: 0.03em;
@@ -330,6 +334,10 @@
           <div class="card-top"><div class="card-icon">お</div><span class="badge live">公開中</span></div>
           <div><h3 class="card-name">おしたくクエスト</h3><p class="card-copy">子どもが自分からやりたくなる、朝の支度ゲームアプリ</p></div>
         </a>
+        <a href="https://apps.apple.com/jp/app/id6820311898" target="_blank" rel="noopener" class="card card-3">
+          <div class="card-top"><div class="card-icon">バ</div><span class="badge live">公開中</span></div>
+          <div><h3 class="card-name">バリ3</h3><p class="card-copy">ガラケー時代のミニゲームを、折りたたみケータイの画面ごと再現。ワンボタンで遊べる3本入り</p></div>
+        </a>
         <div class="tile tile-stack">
           <span class="tile-label">Tech Stack</span>
           <div class="stack-chips">
@@ -396,7 +404,7 @@
         <h3 class="footer-title">なにか一緒に、<br>作りませんか。</h3>
         <div class="footer-links"><a href="https://x.com/tkn_works" target="_blank" rel="noopener">X (Twitter)</a><a href="https://note.com/tkn_works" target="_blank" rel="noopener">note</a><a href="https://zenn.dev/tkn_works" target="_blank" rel="noopener">Zenn</a><a href="https://qiita.com/tkn_works" target="_blank" rel="noopener">Qiita</a></div>
       </div>
-      <div class="footer-bottom"><span>© 2026 tkn_works</span><span class="mono">v0.7.0 · built with AI assistance</span></div>
+      <div class="footer-bottom"><span>© 2026 tkn_works</span><span class="mono">v0.8.0 · built with AI assistance</span></div>
     </footer>
   </div>
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "9e1caa6612ac4aa4a55527f5fad06c8a"}'></script><!-- End Cloudflare Web Analytics -->
