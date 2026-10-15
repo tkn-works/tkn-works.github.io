@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>tkn_works — Product Portfolio</title>
-<meta name="description" content="個人開発者tkn_worksのプロダクトポートフォリオ。こんだてノート・おしたくクエストのほか、個人開発ツールも公開しています。">
+<meta name="description" content="tkn_worksの開発ポートフォリオ。Flutterアプリに加え、CSV・定型業務を小さく自動化する業務ツールの制作例を公開しています。">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23FAFAF8'/%3E%3Crect x='9' y='9' width='14' height='14' rx='3' fill='%23C6394A'/%3E%3C/svg%3E">
 <style>
   :root {
@@ -202,6 +202,52 @@
   .card.card-1 .card-copy { font-size: 15px; }
   .card.card-2 .card-copy, .card.card-3 .card-copy, .card.card-4 .card-copy { font-size: 13.5px; }
 
+  .case-study {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(360px, 0.85fr);
+    gap: 0;
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    overflow: hidden;
+    background: var(--card-bg);
+    box-shadow: 0 18px 50px rgba(20,20,15,0.06);
+  }
+  .case-copy { padding: 48px; border-right: 1px solid var(--line); }
+  .case-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    color: var(--accent);
+  }
+  .case-kicker::before { content: ""; width: 8px; height: 8px; border-radius: 2px; background: var(--accent); }
+  .case-title { margin: 22px 0 14px; font-size: 34px; line-height: 1.35; letter-spacing: -0.025em; }
+  .case-lead { max-width: 42ch; margin: 0; color: var(--ink-soft); font-size: 15px; line-height: 1.85; }
+  .case-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px; }
+  .case-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 34px;
+    color: var(--ink);
+    font-weight: 700;
+    text-decoration: none;
+    border-bottom: 1px solid var(--ink);
+    padding-bottom: 4px;
+  }
+  .case-link span { transition: transform 0.18s ease; }
+  .case-link:hover { color: var(--accent); border-bottom-color: var(--accent); }
+  .case-link:hover span { transform: translateX(4px); }
+  .case-proof { background: var(--ink); color: var(--bg); padding: 40px; display: flex; flex-direction: column; justify-content: space-between; }
+  .case-flow { display: grid; gap: 0; }
+  .flow-step { display: grid; grid-template-columns: 42px 1fr; gap: 16px; padding: 18px 0; border-bottom: 1px solid rgba(250,250,248,0.14); }
+  .flow-no { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; color: rgba(250,250,248,0.42); font-size: 11px; padding-top: 3px; }
+  .flow-step strong { display: block; font-size: 14px; margin-bottom: 5px; }
+  .flow-step p { margin: 0; color: rgba(250,250,248,0.62); font-size: 12.5px; line-height: 1.6; }
+  .case-note { margin: 30px 0 0; font-size: 12px; line-height: 1.7; color: rgba(250,250,248,0.48); }
+
   .about-grid { display: flex; flex-direction: row; gap: 48px; align-items: flex-start; }
   .about-text { font-size: 16px; line-height: 1.85; color: #3A3A35; flex: 1.1; margin: 0; max-width: 52ch; }
   .stack-box { flex: 1; background: var(--card-bg); border: 1px solid var(--line); border-radius: 14px; padding: 26px; }
@@ -236,6 +282,8 @@
     .card.card-1, .card.card-2, .card.card-3, .card.card-4, .tile-stack, .tile-quote, .tile-now { grid-column: 1 / 5; grid-row: auto; min-height: 180px; }
     .card.card-1 { min-height: 260px; }
     .about-grid { flex-direction: column; gap: 28px; }
+    .case-study { grid-template-columns: 1fr; }
+    .case-copy { border-right: 0; border-bottom: 1px solid var(--line); }
     .about-text, .stack-box { flex: none; width: 100%; }
     .footer-top { flex-direction: column; align-items: flex-start; gap: 28px; }
   }
@@ -248,6 +296,8 @@
     .grid { display: flex; flex-direction: column; gap: 14px; }
     .card, .tile { min-height: 150px; }
     .card.card-1 .card-name { font-size: 18px; }
+    .case-copy, .case-proof { padding: 28px 24px; }
+    .case-title { font-size: 26px; }
     .card.card-1 .card-copy { font-size: 13.5px; }
     h2.section-title { font-size: 24px; }
     .footer-title { font-size: 26px; }
@@ -258,7 +308,7 @@
   <div class="site">
     <header class="top">
       <div class="logo"><span class="dot"></span>tkn_works</div>
-      <nav class="top-nav"><a href="#products">products</a><a href="#about">about</a><a href="#contact">contact</a></nav>
+      <nav class="top-nav"><a href="#products">products</a><a href="#work">work sample</a><a href="#about">about</a><a href="#contact">contact</a></nav>
     </header>
 
     <section class="hero">
@@ -284,7 +334,7 @@
         <div class="tile tile-stack">
           <span class="tile-label">Tech Stack</span>
           <div class="stack-chips">
-            <span class="chip">Swift</span><span class="chip">SwiftUI</span><span class="chip">TypeScript</span><span class="chip">React</span><span class="chip">Firebase</span><span class="chip">Claude API</span>
+            <span class="chip">Dart</span><span class="chip">Flutter</span><span class="chip">TypeScript</span><span class="chip">React</span><span class="chip">Firebase</span><span class="chip">Claude API</span>
           </div>
         </div>
         <div class="tile tile-quote">
@@ -294,7 +344,7 @@
         <div class="tile tile-now">
           <span class="tile-label">Now</span>
           <div class="now-value">個人開発 2年目</div>
-          <p class="now-sub">企画・設計・実装・運用まで一人で担当。次のプロダクトも構想中です。</p>
+          <p class="now-sub">企画・要件整理から、AI支援による実装、検証、公開・運用まで担当。次のプロダクトも構想中です。</p>
         </div>
         <a href="https://tkn-works.github.io/kobanhyou/" target="_blank" rel="noopener" class="card card-3">
           <div class="card-top"><div class="card-icon">香</div><span class="badge dev">先行登録受付中</span></div>
@@ -307,13 +357,42 @@
       </div>
     </section>
 
+    <section id="work" class="section">
+      <div class="section-label">
+        <span class="section-eyebrow">02 / WORK SAMPLE</span>
+        <h2 class="section-title">業務の「毎回」を、処理の流れにする。</h2>
+      </div>
+      <article class="case-study">
+        <div class="case-copy">
+          <span class="case-kicker">自主制作 / 業務自動化サンプル</span>
+          <h3 class="case-title">EC商品CSV<br>事前チェック</h3>
+          <p class="case-lead">商品CSVを管理画面へ投入する前に、文字コード、改行、ヘッダー、列数ずれ、引用符、使用できない文字などをまとめて確認するブラウザツールです。ファイルを外部サーバーへ送らず、チェック結果をCSVで保存できます。</p>
+          <div class="case-tags" aria-label="使用技術">
+            <span class="chip">JavaScript</span>
+            <span class="chip">File API</span>
+            <span class="chip">CSV validation</span>
+            <span class="chip">Browser only</span>
+          </div>
+          <a class="case-link" href="https://ec-csv-preflight.web.app/" target="_blank" rel="noopener">実際のツールを試す <span aria-hidden="true">→</span></a>
+        </div>
+        <div class="case-proof" aria-label="処理内容">
+          <div class="case-flow">
+            <div class="flow-step"><span class="flow-no">01</span><div><strong>INPUT</strong><p>複数のCSVをドラッグ＆ドロップ。最大20件、合計50MBまで。</p></div></div>
+            <div class="flow-step"><span class="flow-no">02</span><div><strong>CHECK</strong><p>形式・列構造・文字・数値項目をルールに沿って検査。</p></div></div>
+            <div class="flow-step"><span class="flow-no">03</span><div><strong>REPORT</strong><p>問題の場所と理由を一覧表示し、結果CSVとして出力。</p></div></div>
+          </div>
+          <p class="case-note">顧客案件ではなく、自主制作した実装例です。同様のCSV整形・集計・チェック処理は、サンプルファイルと作業手順を確認したうえで個別に設計します。</p>
+        </div>
+      </article>
+    </section>
+
     <section id="about" class="section">
       <div class="section-label">
-        <span class="section-eyebrow">02 / ABOUT</span>
+        <span class="section-eyebrow">03 / ABOUT</span>
         <h2 class="section-title">つくる人について</h2>
       </div>
       <div class="about-grid">
-        <p class="about-text">個人開発者として、日々の暮らしにちょっとだけ効くプロダクトを作っています。企画・設計・実装・運用まで一人で担当しています。</p>
+        <p class="about-text">個人開発者として、日々の暮らしにちょっとだけ効くプロダクトを作っています。企画・要件整理、AI支援による実装、動作検証、公開・運用を担当しています。</p>
       </div>
     </section>
 
@@ -322,7 +401,7 @@
         <h3 class="footer-title">なにか一緒に、<br>作りませんか。</h3>
         <div class="footer-links"><a href="https://x.com/tkn_works" target="_blank" rel="noopener">X (Twitter)</a><a href="https://note.com/tkn_works" target="_blank" rel="noopener">note</a><a href="https://zenn.dev/tkn_works" target="_blank" rel="noopener">Zenn</a><a href="https://qiita.com/tkn_works" target="_blank" rel="noopener">Qiita</a></div>
       </div>
-      <div class="footer-bottom"><span>© 2026 tkn_works</span><span class="mono">v0.5.0 · built solo</span></div>
+      <div class="footer-bottom"><span>© 2026 tkn_works</span><span class="mono">v0.6.0 · built with AI assistance</span></div>
     </footer>
   </div>
 </body>
